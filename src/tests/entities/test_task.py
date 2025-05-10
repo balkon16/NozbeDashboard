@@ -8,7 +8,7 @@ from src.modules.entities.task import Task
 now = datetime.now()
 # test_project = Project(id="1", name="Test project", created_at=now, last_updated_at=now, is_completed=False)
 
-
+# TODO: support recurring tasks
 def test_task_creation():
     """Test successful Task creation."""
     now = datetime.now()
