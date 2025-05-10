@@ -3,9 +3,12 @@ from datetime import datetime
 from decimal import Decimal
 
 from src.modules.entities.task import Task
+
 # from src.modules.entities.project import Project
 
 now = datetime.now()
+
+
 # test_project = Project(id="1", name="Test project", created_at=now, last_updated_at=now, is_completed=False)
 
 # TODO: support recurring tasks
@@ -15,17 +18,17 @@ def test_task_creation():
     task = Task(
         id="task1",
         name="Test Task",
-        time=Decimal("10.5"),
+        duration=Decimal("10.5"),
         is_completed=False,
         last_updated_at=now,
-        # project=test_project,
+        project_id="ID-123",
     )
     assert task.id == "task1"
     assert task.name == "Test Task"
-    assert task.time == Decimal("10.5")
+    assert task.duration == Decimal("10.5")
     assert task.is_completed is False
     assert task.last_updated_at == now
-    # assert isinstance(task.project, Project)
+    assert task.project_id == "ID-123"
 
 
 def test_task_creation_with_zero_time():
@@ -34,12 +37,12 @@ def test_task_creation_with_zero_time():
     task = Task(
         id="task1",
         name="Test Task",
-        time=Decimal("0"),
+        duration=Decimal("0"),
         is_completed=False,
         last_updated_at=now,
-        # project=test_project,
+        project_id="ID-123",
     )
-    assert task.time == Decimal("0")
+    assert task.duration == Decimal("0")
 
 
 def test_task_creation_negative_time():
@@ -49,9 +52,9 @@ def test_task_creation_negative_time():
         Task(
             id="task1",
             name="Test Task",
-            time=Decimal("-1"),
+            duration=Decimal("-1"),
             is_completed=False,
             last_updated_at=now,
-            # project=test_project,
+            project_id="ID-123",
         )
     assert "Time must be a non-negative value." in str(excinfo.value)
