@@ -16,3 +16,19 @@ cd ~/PycharmProjects/NozbeDashboard
 source .venv/bin/activate
 pytest src/tests/
 ```
+
+## Execution
+
+Make sure the *src/credentials/token.json* file exists:
+
+```json
+{
+  "token": "<token>"
+}
+```
+
+```shell
+cd ~/PycharmProjects/NozbeDashboard
+source .venv/bin/activate
+python main.py
+```
