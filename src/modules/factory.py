@@ -17,21 +17,23 @@ class EntityFactory:
         Creates a Task object from a dictionary of task data.
         """
         try:
-            duration_minutes = task_data["time"]
+            duration_minutes = int(task_data["time"])
         except KeyError:
             raise ValueError("Task data must contain 'time' key.")
 
         try:
-            ts = task_data["ts"]
+            ts = float(task_data["ts"])
         except KeyError:
             raise ValueError("Task data must contain 'ts' key.")
+        except ValueError:
+            raise ValueError(f"Can't translate {task_data['ts']} to a float.")
 
         return Task(
             id=task_data["id"],
             name=task_data["name"],
-            duration=Decimal(task_data["time"] / 60),  # Convert minutes to hours
+            duration=Decimal(duration_minutes / 60),  # Convert minutes to hours
             is_completed=task_data["completed"],
-            last_updated_at=datetime.fromtimestamp(ts),
+            last_updated_at=datetime.fromtimestamp(ts, tz=timezone.utc),
             project_id=task_data["project_id"],  # Assuming project_id is present
         )
 
@@ -55,7 +57,7 @@ class EntityFactory:
             id=project_data["id"],
             name=project_data["name"],
             created_at=datetime.strptime(created_at_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc),
-            last_updated_at=datetime.fromtimestamp(float(ts), timezone.utc),
+            last_updated_at=datetime.fromtimestamp(float(ts), tz=timezone.utc),
             is_completed=project_data["_has_completed"],
         )
 
