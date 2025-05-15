@@ -1,30 +1,27 @@
 import json
+import logging
+import sys
 
 import requests
 
-with open("src/credentials/token.json") as f:
-    token = json.load(f)["token"]
+from src.modules.rest.client import NozbeAPIClient
+from src.modules.factory import EntityFactory
 
-BASE_URL = "https://api.nozbe.com:3000"
-endpoint = "/list"
-url = BASE_URL + endpoint
+if __name__ == '__main__':
+    try:
+        client = NozbeAPIClient()
+        raw_projects = client.get_projects()
+        logging.info(f"Fetched {len(raw_projects)} projects.")
+        for project in raw_projects:
+            logging.info(f"Project Name: {project['name']}")
 
-data = {
-    "type": "project"
-}
+        raw_tasks = client.get_tasks()
+        logging.info(f"Fetched {len(raw_tasks)} tasks.")
 
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, requests.exceptions.RequestException) as e:
+        logging.error(f"An error occurred during API interaction: {e}")
+        sys.exit(1)
 
-headers = {
-    "Authorization": token
-    # "Authorization": f"Bearer {token}",  # Assuming Bearer token authentication
-    # "Content-Type": "application/json"  # Indicate JSON data
-}
-
-resp = requests.get(
-    url=url,
-    data=data,
-    headers=headers
-)
-# print("After request.")
-for project_data in resp.json():
-    print(project_data["name"])
+    # TODO: the "Flask Web Development" project is missing its creation datetime? Why?
+    # projects = EntityFactory.create_projects_from_list(raw_projects, raw_tasks)
+    # print(f"Created {len(projects)} projects from raw data.")
