@@ -24,8 +24,8 @@ def test_populate_project_with_tasks(get_scenario02_raw_data):
     projects_raw, tasks_raw = get_scenario02_raw_data
     # project_raw = projects_raw[0]
     projects: List[Project] = EntityFactory.create_projects_from_list(projects_raw, tasks_raw)
-    assert len(projects) == 1
-    # TODO: more complex testing
+    assert (len(projects) == 1
+            and len(projects[0].tasks) == 2)
 
 
 def test_create_task(get_scenario02_raw_data):
@@ -39,3 +39,16 @@ def test_create_task(get_scenario02_raw_data):
         last_updated_at=datetime.datetime(2025, 4, 13, 13, 43, 15, 306786, tzinfo=datetime.timezone.utc),
         project_id="p6drAQ3diWQQ9YgG"
     )
+
+
+def test_populate_multiple_projects(get_scenario03_raw_data):
+    projects_raw, tasks_raw = get_scenario03_raw_data
+    projects: List[Project] = EntityFactory.create_projects_from_list(projects_raw, tasks_raw)
+    assert (len(projects) == 2
+            and projects[0].name == "Inbox"
+            and projects[1].name == "Nozbe - Test Project"
+            and len(projects[0].tasks) == 1
+            and len(projects[1].tasks) == 2
+            and projects[1].tasks[0].name == 'Task no. 2 - recurring task'
+            and projects[1].tasks[0].project_id == 'xyTlhIPTsqKoFUSQ'
+            )

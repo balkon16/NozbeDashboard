@@ -1,0 +1,78 @@
+[
+  {
+    "id": "p6drAQ3diWQQ9YgG",
+    "name": "Inbox",
+    "body": "This is your first project - automatically created for you by Nozbe. Inbox is more like a *container* or *bucket* where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on 'edit description' link below.",
+    "description": "This is your first project - automatically created for you by Nozbe. Inbox is more like a *container* or *bucket* where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on 'edit description' link below.",
+    "tags": [],
+    "is_inbox": "y",
+    "share": [
+      {
+        "user_id": "NT9vB8e5jzSSjtj7",
+        "email": "pawel.k.lonca@gmail.com",
+        "role": "owner",
+        "status": "10",
+        "_status_s": "owner"
+      }
+    ],
+    "template_id": "",
+    "evernote_widgets": [],
+    "dropbox_widgets": [],
+    "boxnet_widgets": [],
+    "gdrive_widgets": [],
+    "onedrive_widgets": [],
+    "ts": "1746873827.553539",
+    "_by_user": "NT9vB8e5jzSSjtj7",
+    "_is_inbox": "y",
+    "_count": 3,
+    "_body_d": "\t<p>This is your first project &#8211; automatically created for you by Nozbe. Inbox is more like a <strong>container</strong> or <strong>bucket</strong> where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on &#8216;edit description&#8217; link below.</p>",
+    "_sort": 0,
+    "_bulb": "1",
+    "_color": "",
+    "_project_email": ".inbox",
+    "_shared": "n",
+    "_share_people": null,
+    "_task_ids": null,
+    "_has_completed": true,
+    "_created_at": "2019-11-30 14:00:54",
+    "is_onboarding": false
+  },
+  {
+    "id": "xyTlhIPTsqKoFUSQ",
+    "name": "Nozbe - Test Project",
+    "body": "This project has been created for the purposes of testing a personal project \"Nozbe - Dashboard\".",
+    "description": "This project has been created for the purposes of testing a personal project \"Nozbe - Dashboard\".",
+    "tags": [],
+    "is_inbox": "n",
+    "share": [
+      {
+        "user_id": "NT9vB8e5jzSSjtj7",
+        "email": "pawel.k.lonca@gmail.com",
+        "role": "owner",
+        "status": "10",
+        "_status_s": "owner"
+      }
+    ],
+    "template_id": "",
+    "evernote_widgets": [],
+    "dropbox_widgets": [],
+    "boxnet_widgets": [],
+    "gdrive_widgets": [],
+    "onedrive_widgets": [],
+    "ts": "1664861355.747391",
+    "_by_user": "NT9vB8e5jzSSjtj7",
+    "_is_inbox": "n",
+    "_count": 2,
+    "_body_d": "\t<p>This project has been created for the purposes of testing a personal project &#8220;Nozbe &#8211; Dashboard&#8221;.</p>",
+    "_sort": -368,
+    "_bulb": "1",
+    "_color": "ffc24a",
+    "_project_email": ".nozbe-test_project",
+    "_shared": "n",
+    "_share_people": null,
+    "_task_ids": null,
+    "_has_completed": true,
+    "_created_at": "2022-10-03 20:07:42",
+    "is_onboarding": false
+  }
+]
