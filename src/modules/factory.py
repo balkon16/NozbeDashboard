@@ -1,9 +1,10 @@
+import logging
 from datetime import datetime, timezone
 from decimal import Decimal
 from typing import List, Dict
 
-from modules.entities.project import Project
-from modules.entities.task import Task
+from .entities.project import Project
+from .entities.task import Task
 
 
 class EntityFactory:
@@ -44,22 +45,26 @@ class EntityFactory:
         Optionally accepts a list of tasks to associate with the project.
         """
         try:
-            created_at_str = project_data["_created_at"]
-        except KeyError:
-            raise ValueError("Project data must contain '_created_at' key.")
-
-        try:
             ts = project_data["ts"]
         except KeyError:
             raise ValueError("Project data must contain 'ts' key.")
 
-        project = Project(
-            id=project_data["id"],
-            name=project_data["name"],
-            created_at=datetime.strptime(created_at_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc),
-            last_updated_at=datetime.fromtimestamp(float(ts), tz=timezone.utc),
-            is_completed=project_data["_has_completed"],
-        )
+        # TODO (low): it actually should be the Project responsible for creating
+        #  fields (e.g. translating last_updated_at from string to datetime)
+        constructor_data = {
+            "id": project_data["id"],
+            "name": project_data["name"],
+            "last_updated_at": datetime.fromtimestamp(float(ts), tz=timezone.utc),
+            "is_completed": project_data["_has_completed"]
+        }
+        created_at_str = project_data.get("_created_at")
+        if created_at_str:
+            constructor_data["created_at"] \
+                = datetime.strptime(created_at_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+        else:
+            logging.warning(f"{project_data['name']}: Missing value for 'created_at' field.")
+
+        project = Project(**constructor_data)
 
         if tasks:
             project.tasks = tasks  # Assign tasks directly

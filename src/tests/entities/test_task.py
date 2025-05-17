@@ -4,12 +4,6 @@ from decimal import Decimal
 
 from src.modules.entities.task import Task
 
-# from src.modules.entities.project import Project
-
-now = datetime.now()
-
-
-# test_project = Project(id="1", name="Test project", created_at=now, last_updated_at=now, is_completed=False)
 
 # TODO: support recurring tasks
 def test_task_creation():

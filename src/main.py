@@ -8,6 +8,9 @@ import requests
 from modules.data_providers.rest_api_data_provider import RestAPIDataProvider
 from modules.data_providers.local_storage_data_provider import LocalStorageDataProvider
 from modules.factory import EntityFactory
+from modules.saving.base_saver import DataSaver
+from modules.saving.csv_saver import CsvSaver
+from modules.saving.xlsx_saver import XlsxSaver
 
 
 def main():
@@ -69,9 +72,22 @@ def main():
         logging.error(f"An error occurred: {e}")
         sys.exit(1)
 
-    # TODO: the "Flask Web Development" project is missing its creation datetime? Why?
-    # projects = EntityFactory.create_projects_from_list(raw_projects, raw_tasks)
-    # print(f"Created {len(projects)} projects from raw data.")
+    projects = EntityFactory.create_projects_from_list(raw_projects, raw_tasks)
+    # TODO: completed tasks are missing, e.g. the "Architecture Patterns with Python"
+    #  shows only two tasks (5 min & 0 min)
+    #  one completed (45 min) is not present!
+    logging.info(f"Created {len(projects)} projects from raw data.")
+
+    csv_output_filepath = "output/project_tasks.csv"
+    xlsx_output_filepath = "output/output_project_tasks.xlsx"
+
+    csv_saver: DataSaver = CsvSaver()
+    logging.info(f"Saving tasks to CSV: {csv_output_filepath}")
+    csv_saver.save(projects, csv_output_filepath)
+
+    xlsx_saver: DataSaver = XlsxSaver()
+    logging.info(f"Saving tasks to XLSX: {xlsx_output_filepath}")
+    xlsx_saver.save(projects, xlsx_output_filepath, sheet_name="All tasks")
 
 
 if __name__ == '__main__':

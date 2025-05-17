@@ -30,5 +30,25 @@ Make sure the *src/credentials/token.json* file exists:
 ```shell
 cd ~/PycharmProjects/NozbeDashboard
 source .venv/bin/activate
-python main.py
+python src/main.py --data-provider local
+```
+
+All options:
+```shell
+usage: main.py [-h] [--data-provider {api,local}] [--projects-file PROJECTS_FILE] [--tasks-file TASKS_FILE] [--token-file TOKEN_FILE] [--log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
+
+Fetch and process project and task data.
+
+options:
+  -h, --help            show this help message and exit
+  --data-provider {api,local}
+                        Specify the data provider to use: 'api' for Rest API, 'local' for Local Storage. Defaults to 'api'.
+  --projects-file PROJECTS_FILE
+                        Path to the projects JSON file (used with --data-provider local).
+  --tasks-file TASKS_FILE
+                        Path to the tasks JSON file (used with --data-provider local).
+  --token-file TOKEN_FILE
+                        Path to the token JSON file (used with --data-provider api).
+  --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        Set the logging level. Defaults to INFO.
 ```
