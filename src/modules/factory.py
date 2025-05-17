@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import List, Dict
 
-from src.modules.entities.project import Project
-from src.modules.entities.task import Task
+from modules.entities.project import Project
+from modules.entities.task import Task
 
 
 class EntityFactory:

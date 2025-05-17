@@ -2,16 +2,17 @@ import json
 import logging
 import requests
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from modules.data_providers.abstract_data_provider import DataProvider
 
 
-class NozbeAPIClient:
+class RestAPIDataProvider(DataProvider):
     """
     A client for interacting with the Nozbe REST API.
     """
 
-    def __init__(self, token_file="src/credentials/token.json", base_url="https://api.nozbe.com:3000"):
+    def __init__(self, token_file="src/credentials/token.json"
+                 , base_url="https://api.nozbe.com:3000"
+                 , log_level=logging.INFO):
         """
         Initializes the NozbeAPIClient with the API token and base URL.
 
@@ -19,6 +20,7 @@ class NozbeAPIClient:
             token_file (str): Path to the JSON file containing the API token.
             base_url (str): The base URL of the Nozbe API.
         """
+        super().__init__(log_level)
         self.base_url = base_url
         self.token = self._load_token(token_file)
         self.headers = {"Authorization": self.token}  # Assuming simple token authentication
@@ -94,24 +96,3 @@ class NozbeAPIClient:
         endpoint = "/list"
         data = {"type": "task"}
         return self._get_data(endpoint, data)
-
-    def get_entity(self, entity_type):
-        """
-        Fetches a list of entities from the API based on the entity type.
-
-        Args:
-            entity_type (str): The type of entity to fetch (e.g., "project", "task").
-
-        Returns:
-            list: A list of dictionaries, where each dictionary represents an entity.
-
-        Raises:
-            NotImplementedError: If the entity type is not supported.
-        """
-        if entity_type == "project":
-            return self.get_projects()
-        elif entity_type == "task":
-            return self.get_tasks()
-        else:
-            logging.error(f"Unsupported entity type: {entity_type}")
-            raise NotImplementedError(f"Unsupported entity type: {entity_type}")

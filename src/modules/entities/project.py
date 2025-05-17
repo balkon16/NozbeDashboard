@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List
 
-from src.modules.entities.task import Task
+from modules.entities.task import Task
 
 
 @dataclass
