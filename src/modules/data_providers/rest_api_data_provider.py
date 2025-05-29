@@ -50,7 +50,7 @@ class RestAPIDataProvider(DataProvider):
             logging.error(f"Token key not found in token file: {token_file}")
             raise KeyError(f"Token key not found in token file: {token_file}")
 
-    def _get_data(self, endpoint, data=None):
+    def _get_data(self, endpoint, url_params="", data=None):
         """
         Fetches data from the specified API endpoint.
 
@@ -64,7 +64,11 @@ class RestAPIDataProvider(DataProvider):
         Raises:
             requests.exceptions.RequestException: If the API request fails.
         """
+
         url = self.base_url + endpoint
+        if url_params:
+            url += "?" + url_params
+
         try:
             logging.info(f"Sending GET request to {url} with data: {data}")
             response = requests.get(url, headers=self.headers, params=data)  # Use params for GET requests
@@ -96,3 +100,9 @@ class RestAPIDataProvider(DataProvider):
         endpoint = "/list"
         data = {"type": "task"}
         return self._get_data(endpoint, data)
+
+    def get_tasks_for_project(self):
+        endpoint = "/tasks"
+
+        # https://api4.nozbe.com/v1/api/tasks?limit=1000&offset=0&project_id=x1aNvN70qlVBV61i
+        return self._get_data(endpoint, url_params="limit=1000&project_id=x1aNvN70qlVBV61i") # TODO: pass URL params as dict
