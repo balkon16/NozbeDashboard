@@ -6,7 +6,7 @@ from typing import List, Dict
 from .entities.project import Project
 from .entities.task import Task
 
-
+# TODO: v4 data has different schema -> change Factory
 class EntityFactory:
     """
     A factory class for creating Task and Project objects from API data.

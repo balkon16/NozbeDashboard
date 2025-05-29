@@ -9,8 +9,11 @@ class Task:
     Represents a task within a project.
     """
 
+    # TODO: add:
+    #  > created_at and ended_at -> compute cycle time
     id: str
     name: str
+    # TODO: must be based on either time_spent or time_needed (the former is post-factum, the latter ante-factum)
     duration: Decimal
     is_completed: bool
     last_updated_at: datetime

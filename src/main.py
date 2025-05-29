@@ -52,7 +52,11 @@ def main():
 
     try:
         if args.data_provider == "api":
-            client = RestAPIDataProvider(token_file=args.token_file, log_level=getattr(logging, args.log_level))
+            client = RestAPIDataProvider(
+                token_file=args.token_file,
+                base_url="https://api4.nozbe.com/v1/api",
+                log_level=getattr(logging, args.log_level),
+            )
         elif args.data_provider == "local":
             client = LocalStorageDataProvider(projects_file=args.projects_file, tasks_file=args.tasks_file,
                                               log_level=getattr(logging, args.log_level))
