@@ -76,6 +76,10 @@ def main():
     # TODO: completed tasks are missing, e.g. the "Architecture Patterns with Python"
     #  shows only two tasks (5 min & 0 min)
     #  one completed (45 min) is not present!
+    #  > given a completed task ID it's impossible to retrieve it from the API:
+    #    curl -i https://api.nozbe.com:3000/task -XGET -d"id=BPeolngmN2tqCIPc" -H"Authorization:<token>"
+    #   the same goes for completed projects
+    #  Observe the website/app traffic to spot API requests retrieving completed tasks/projects
     logging.info(f"Created {len(projects)} projects from raw data.")
 
     csv_output_filepath = "output/project_tasks.csv"
