@@ -15,7 +15,8 @@ class Project:
     id: str
     name: str
     last_updated_at: datetime
-    is_completed: bool
+    # TODO: verify if this can be inferred from data
+    # is_completed: bool
     created_at: Optional[datetime] = datetime(1970, 1, 1, tzinfo=timezone.utc)
     tasks: List[Task] = field(default_factory=list)
 

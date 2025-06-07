@@ -1,21 +1,24 @@
 from decimal import Decimal
 
-import pytest
 from datetime import datetime, timedelta, timezone
 
 from src.modules.entities.project import Project
 from src.modules.entities.task import Task
 
 
+# is_completed - commented out because it waits for verification whether this flag can be inferred from data
+
 def test_valid_project_creation_case01():
     """Test that a project can be created with valid dates."""
     now = datetime.now()
-    project = Project(id="1", name="Test project", created_at=now, last_updated_at=now, is_completed=False)
+    project = Project(id="1", name="Test project", created_at=now, last_updated_at=now
+                      # , is_completed=False
+                      )
     assert project.id == "1"
     assert project.name == "Test project"
     assert project.created_at == now
     assert project.last_updated_at == now
-    assert project.is_completed is False
+    # assert project.is_completed is False
 
 
 def test_valid_project_creation_case02():
@@ -26,12 +29,13 @@ def test_valid_project_creation_case02():
                       , name="Test project"
                       , created_at=created_at_dt
                       , last_updated_at=last_updated_at_dt
-                      , is_completed=False)
+                      # , is_completed=False
+                      )
     assert project.id == "2"
     assert project.name == "Test project"
     assert project.created_at == created_at_dt
     assert project.last_updated_at == last_updated_at_dt
-    assert project.is_completed is False
+    # assert project.is_completed is False
 
 
 def test_valid_project_creation_case03():
@@ -40,18 +44,24 @@ def test_valid_project_creation_case03():
     project = Project(id="2"
                       , name="Test project"
                       , last_updated_at=last_updated_at_dt
-                      , is_completed=False)
+                      # , is_completed=False
+                      )
     assert project.id == "2"
     assert project.name == "Test project"
     assert project.created_at == datetime(1970, 1, 1, tzinfo=timezone.utc)
     assert project.last_updated_at == last_updated_at_dt
-    assert project.is_completed is False
+    # assert project.is_completed is False
 
 
 def test_last_updated_at_equal_to_created_at():
     """Test that a project can be created when last_updated_at is equal to created_at."""
     now = datetime.now()
-    project = Project(id="1", name="Test project", created_at=now, last_updated_at=now, is_completed=False)
+    project = Project(id="1"
+                      , name="Test project"
+                      , created_at=now
+                      , last_updated_at=now
+                      # , is_completed=False
+                      )
     assert project.created_at == project.last_updated_at
 
 
@@ -59,9 +69,14 @@ def test_last_updated_at_later_than_created_at():
     """Test that a project can be created when last_updated_at is later than created_at."""
     created_at = datetime.now()
     last_updated_at = created_at + timedelta(days=1)
-    project = Project(id="1", name="Test project", created_at=created_at, last_updated_at=last_updated_at,
-                      is_completed=False)
+    project = Project(id="1"
+                      , name="Test project"
+                      , created_at=created_at
+                      , last_updated_at=last_updated_at
+                      # , is_completed=False
+                      )
     assert project.last_updated_at > project.created_at
+
 
 # This stays commented out until analysis is conducted (*1)
 # def test_invalid_project_creation():
@@ -83,7 +98,7 @@ def test_add_multiple_tasks_to_project():
         name="Test Project",
         created_at=now,
         last_updated_at=now,
-        is_completed=False,
+        # is_completed=False,
     )
 
     # Create two tasks associated with the project
@@ -91,7 +106,7 @@ def test_add_multiple_tasks_to_project():
         id="task1",
         name="Task 1",
         duration=Decimal("5.0"),
-        is_completed=False,
+        # is_completed=False,
         last_updated_at=now,
         project_id="project1"
     )
@@ -99,7 +114,7 @@ def test_add_multiple_tasks_to_project():
         id="task2",
         name="Task 2",
         duration=Decimal("3.0"),
-        is_completed=True,
+        # is_completed=True,
         last_updated_at=now,
         project_id="project1"
     )

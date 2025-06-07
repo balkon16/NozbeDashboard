@@ -12,7 +12,8 @@ class Task:
     id: str
     name: str
     duration: Decimal
-    is_completed: bool
+    # TODO: can this be inferred from raw data?
+    # is_completed: bool
     last_updated_at: datetime
     project_id: str  # TODO: do I need a reference to a Project object?
 

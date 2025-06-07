@@ -1,40 +1,22 @@
 [
   {
-    "id": "p6drAQ3diWQQ9YgG",
-    "name": "Inbox",
-    "body": "This is your first project - automatically created for you by Nozbe. Inbox is more like a *container* or *bucket* where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on 'edit description' link below.",
-    "description": "This is your first project - automatically created for you by Nozbe. Inbox is more like a *container* or *bucket* where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on 'edit description' link below.",
-    "tags": [],
-    "is_inbox": "y",
-    "share": [
-      {
-        "user_id": "NT9vB8e5jzSSjtj7",
-        "email": "pawel.k.lonca@gmail.com",
-        "role": "owner",
-        "status": "10",
-        "_status_s": "owner"
-      }
-    ],
-    "template_id": "",
-    "evernote_widgets": [],
-    "dropbox_widgets": [],
-    "boxnet_widgets": [],
-    "gdrive_widgets": [],
-    "onedrive_widgets": [],
-    "ts": "1746873827.553539",
-    "_by_user": "NT9vB8e5jzSSjtj7",
-    "_is_inbox": "y",
-    "_count": 3,
-    "_body_d": "\t<p>This is your first project &#8211; automatically created for you by Nozbe. Inbox is more like a <strong>container</strong> or <strong>bucket</strong> where you can store your actions and move them to other projects at a later time. Of course you are free to rename this project and edit this info by clicking on &#8216;edit description&#8217; link below.</p>",
-    "_sort": 0,
-    "_bulb": "1",
-    "_color": "",
-    "_project_email": ".inbox",
-    "_shared": "n",
-    "_share_people": null,
-    "_task_ids": null,
-    "_has_completed": true,
-    "_created_at": "2019-11-30 14:00:54",
-    "is_onboarding": false
+    "is_single_actions": false,
+    "is_open": true,
+    "name": "Meta",
+    "created_at": 1741604341109,
+    "extra": "{\"project_invitation\":null,\"are_time_attributes_enabled\":true}",
+    "is_template": false,
+    "team_id": "0ZGfPq26ZwMWZSKu",
+    "last_event_at": 1741604341109,
+    "author_id": "2SSmd9L67pah9sRj",
+    "is_favorite": false,
+    "ended_at": null,
+    "team_color": "elwis",
+    "shared_team_id": null,
+    "id": "UM125NDZfKyIxuKI",
+    "color": null,
+    "preferences": null,
+    "sidebar_position": 1,
+    "last_seen_event_at": 1741604341109
   }
 ]

@@ -17,24 +17,29 @@ class EntityFactory:
         """
         Creates a Task object from a dictionary of task data.
         """
-        try:
-            duration_minutes = int(task_data["time"])
-        except KeyError:
-            raise ValueError("Task data must contain 'time' key.")
+
+        # time needed - initially planned time needed to complete a task (in microseconds)
+        # time spent - time filled post-factum (in microseconds)
+        # The latter should be preferred.
+
+        time_needed = task_data.get("time_needed")
+        time_spent = task_data.get("time_spent")
+        if time_needed is None and time_spent is None:
+            raise ValueError("Task data must contain 'time_needed' or 'time_spent' key (or both).")
+
+        time = time_spent if time_spent > 0 else time_needed
 
         try:
-            ts = float(task_data["ts"])
+            last_modified = task_data["last_modified"]
         except KeyError:
-            raise ValueError("Task data must contain 'ts' key.")
-        except ValueError:
-            raise ValueError(f"Can't translate {task_data['ts']} to a float.")
+            raise ValueError("Task data must contain 'last_modified' key.")
 
         return Task(
             id=task_data["id"],
             name=task_data["name"],
-            duration=Decimal(duration_minutes / 60),  # Convert minutes to hours
-            is_completed=task_data["completed"],
-            last_updated_at=datetime.fromtimestamp(ts, tz=timezone.utc),
+            duration=Decimal(time / 1000 / 60),  # Convert minutes to hours
+            # is_completed=task_data["completed"],
+            last_updated_at=datetime.fromtimestamp(last_modified / 1000, tz=timezone.utc),
             project_id=task_data["project_id"],  # Assuming project_id is present
         )
 
@@ -45,22 +50,22 @@ class EntityFactory:
         Optionally accepts a list of tasks to associate with the project.
         """
         try:
-            ts = project_data["ts"]
+            ts = project_data["last_event_at"]
         except KeyError:
-            raise ValueError("Project data must contain 'ts' key.")
+            raise ValueError("Project data must contain 'last_event_at' key.")
 
         # TODO (low): it actually should be the Project responsible for creating
         #  fields (e.g. translating last_updated_at from string to datetime)
         constructor_data = {
             "id": project_data["id"],
             "name": project_data["name"],
-            "last_updated_at": datetime.fromtimestamp(float(ts), tz=timezone.utc),
-            "is_completed": project_data["_has_completed"]
+            "last_updated_at": datetime.fromtimestamp(int(ts)/1000, tz=timezone.utc),
+            # the following flag waits for verification
+            # "is_completed": project_data["_has_completed"]
         }
-        created_at_str = project_data.get("_created_at")
-        if created_at_str:
-            constructor_data["created_at"] \
-                = datetime.strptime(created_at_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+        created_at_ts = project_data.get("created_at")
+        if created_at_ts:
+            constructor_data["created_at"] = datetime.fromtimestamp(float(created_at_ts)/1000, tz=timezone.utc)
         else:
             logging.warning(f"{project_data['name']}: Missing value for 'created_at' field.")
 

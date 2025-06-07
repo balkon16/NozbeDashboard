@@ -5,6 +5,8 @@ from decimal import Decimal
 from src.modules.entities.task import Task
 
 
+# is_completed - waiting for verification
+
 # TODO: support recurring tasks
 def test_task_creation():
     """Test successful Task creation."""
@@ -13,14 +15,14 @@ def test_task_creation():
         id="task1",
         name="Test Task",
         duration=Decimal("10.5"),
-        is_completed=False,
+        # is_completed=False,
         last_updated_at=now,
         project_id="ID-123",
     )
     assert task.id == "task1"
     assert task.name == "Test Task"
     assert task.duration == Decimal("10.5")
-    assert task.is_completed is False
+    # assert task.is_completed is False
     assert task.last_updated_at == now
     assert task.project_id == "ID-123"
 
@@ -32,7 +34,7 @@ def test_task_creation_with_zero_time():
         id="task1",
         name="Test Task",
         duration=Decimal("0"),
-        is_completed=False,
+        # is_completed=False,
         last_updated_at=now,
         project_id="ID-123",
     )
@@ -47,7 +49,7 @@ def test_task_creation_negative_time():
             id="task1",
             name="Test Task",
             duration=Decimal("-1"),
-            is_completed=False,
+            # is_completed=False,
             last_updated_at=now,
             project_id="ID-123",
         )
