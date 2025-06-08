@@ -41,15 +41,29 @@ def test_create_task(get_scenario02_raw_data):
         project_id="UM125NDZfKyIxuKI"
     )
 
-# TODO: run this test
-# def test_populate_multiple_projects(get_scenario03_raw_data):
-#     projects_raw, tasks_raw = get_scenario03_raw_data
-#     projects: List[Project] = EntityFactory.create_projects_from_list(projects_raw, tasks_raw)
-#     assert (len(projects) == 2
-#             and projects[0].name == "Inbox"
-#             and projects[1].name == "Nozbe - Test Project"
-#             and len(projects[0].tasks) == 1
-#             and len(projects[1].tasks) == 2
-#             and projects[1].tasks[0].name == 'Task no. 2 - recurring task'
-#             and projects[1].tasks[0].project_id == 'xyTlhIPTsqKoFUSQ'
-#             )
+
+def test_create_task_with_time_needed(get_scenario02_raw_data):
+    _, tasks_raw = get_scenario02_raw_data
+    task_raw = tasks_raw[1]
+    assert EntityFactory.create_task(task_raw) == Task(
+        id="2FjOLQozLGpE7s06",
+        name="Meta task no. 1",
+        duration=Decimal("10"),
+        # waiting for verification
+        # is_completed=False,
+        last_updated_at=datetime.datetime(2025, 3, 12, 10, 21, 17, 427000, tzinfo=datetime.timezone.utc),
+        project_id="UM125NDZfKyIxuKI"
+    )
+
+
+def test_populate_multiple_projects(get_scenario03_raw_data):
+    projects_raw, tasks_raw = get_scenario03_raw_data
+    projects: List[Project] = EntityFactory.create_projects_from_list(projects_raw, tasks_raw)
+    assert (len(projects) == 2
+            and projects[0].name == "DAMA-DMBOK"
+            and projects[1].name == "Projekt zakończony - przykład"
+            and len(projects[0].tasks) == 2
+            and len(projects[1].tasks) == 1
+            and projects[1].tasks[0].name == 'Zadanie nr 1'
+            and projects[1].tasks[0].project_id == 'DgT1EKt8xQ7on40P'
+            )
